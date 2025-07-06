@@ -1,0 +1,30 @@
+#postgres
+docker run -p 5432:5432 --name postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d postgres:17-alpine3.20
+
+#version1
+docker run -p 5432:5432 --name postgres1  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d postgres:15.10-alpine3.20
+
+#mysql
+docker run --name mysql6 -e MYSQL_ROOT_PASSWORD=my1secretpw1 -e MYSQL_RANDOM_ROOT_PASSWORD=my1secretpw1 mysql:8.0.27 --verbose 
+
+docker run -p 3306:3306 --name mysql -e MYSQL_DATABASE=ecommerce_java -e MYSQL_USER=mysql -e MYSQL_ROOT_PASSWORD=mysql -e MYSQL_PASSWORD=mysql -d mysql:8.0.27 
+
+
+#oracle
+docker run --name oracle1 -d oraclelinux:9-slim
+
+docker run --name oracle1 -d oraclelinux:8
+
+docker run --name oracle1 -d oraclelinux:8-slim
+
+
+adminer
+docker run -p 8080:8080 --name adminer -d adminer:4.8.1-standalone
+
+para conectarse a la base de datos de postgres nos dirigimos a esta direccion
+http://localhost:8080/
+
+luego hacemos esto elegimos la base de datos PostgreSQL
+Servidor: 172.17.0.1
+Usuario: postgres
+Contraseña: postgres

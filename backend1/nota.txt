@@ -1,0 +1,57 @@
+
+docker------ 
+docker run -p 27017:27017 --name mongodb -d mongodb/mongodb-community-server:6.0.5-ubi8
+docker start mongodb
+docker stop mongodb
+docker exec -it mongodb sh
+
+mongodb--------
+si tu base de datos es test digitar
+mongosh
+
+673dbab365e679e90a196110
+sino ejemplo
+mongosh "mongodb://127.0.0.1:27017/base"
+
+eliminar los registros de la base de datos
+db.users.remove({})
+db.posts.remove({})
+db.notifications.remove({})
+db.users.find()
+
+seleccionar la base de datos
+use database
+
+mostrar las bases de datos
+show dbs
+
+eliminar base de datos
+db.dropDatabase()
+
+redist
+
+touch redis-docker-compose.yml
+
+version: "3.3"
+services:
+  redis:
+    image: redis:6.0.7
+    container_name: redis
+    restart: always
+    volumes:
+      - redis_volume_data:/data
+    ports:
+      - 6379:6379
+  redis_insight:
+    image: redislabs/redisinsight:1.14.0
+    container_name: redis_insight
+    restart: always
+    ports:
+      - 8001:8001
+    volumes:
+      - redis_insight_volume_data:/db
+
+volumes:
+  redis_volume_data:
+  redis_insight_volume_data:
+

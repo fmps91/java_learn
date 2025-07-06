@@ -1,0 +1,283 @@
+terminal
+para buscar el proceso en el puerto 5000
+lsof -i tcp:6000
+kill -9 pid
+
+
+backend 
+
+paginacion en la base de datos cualquiera
+----------------------
+
+asi es la consulta en postgresql
+select * from tabla offset 0 limit 20;
+
+y para saber cuantos registros tenemos en la tabla hacemos esto
+SELECT COUNT(*) FROM tabla;
+
+estoy en el video git video 21
+
+
+esto se tiene que poner en la tabla
+offset 0
+limit 20
+
+la formula del offset seria
+offset=(pag-1)*limit
+
+
+pagina=es igual al nro de inicio desde donde va a comenzar a consultar la tabla
+total=es igual a nro de registros en la tabla que hay en la tabla
+limit=es cuantos registros maximo se van acceder a la tabla
+offset=es desde que nro de registro se va a comenzar a hacer la consulta
+paginas=si quieres saber cuantas paginas tienes de acuerdo a los registros
+
+pagina=1
+limit=20
+total=204
+offset=(pagina-1)*limite
+pages=int(total/limite)
+
+----------------------
+
+springboot 3.4.0
+
+jdk
+aqui te descarga por defecto el jdk para tu pc
+https://adoptium.net/es/
+
+sino quieres eso vas a otras plataformas o versiones
+donde podras seleccionar otra version si eso lo deseas
+
+para saber la version que estoy utlizando
+java --version
+
+ahora luego de instalar 
+echo $JAVA_HOME
+
+para cambiar la version debemos poner despues del igual la otra
+version del java que queremos cambiar en mi caso tengo 2 versiones
+instaladas la 17 y la 21. quiero seleccionar la 17
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home 
+
+java --version
+
+spring boot
+en el src/main/resources/application.properties 
+postgres
+spring.application.name=backend
+server.port=5000
+spring.datasource.url= jdbc:postgresql://127.0.0.1:5432/ecommerce_java
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+mysql
+server.port=5000
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce_java
+spring.datasource.username=mysql
+spring.datasource.password=mysql
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.show-sql: true
+
+para configurar la base de datos ir a docker_database 
+leer las instrucciones db.txt
+
+
+maven
+https://mvnrepository.com/
+
+swagger
+podrias descargar el editor o usarlo en linea
+https://swagger.io/tools/swagger-editor/
+o utilizar docker
+docker pull swaggerapi/swagger-editor:v5.0.0-alpha.98-unprivileged
+docker run --name swagger -d -p 9000:8080 swaggerapi/swagger-editor:v5.0.0-alpha.98-unprivileged
+
+
+
+para ingresar a swagger
+http://localhost:5000/swagger-ui/index.html
+
+
+frontend 
+
+
+npm install typescript tsx @types/node --save-dev
+
+npm install prisma --save-dev
+
+ 
+
+#git
+
+
+Estos serían los prefijos para hacer los commits:
+
+feat: Una nueva característica para el usuario.
+fix: Arregla un bug que afecta al usuario.
+perf: Cambios que mejoran el rendimiento del sitio.
+build: Cambios en el sistema de build, tareas de despliegue o instalación.
+ci: Cambios en la integración continua.
+docs: Cambios en la documentación.
+refactor: Refactorización del código como cambios de nombre de variables o funciones.
+style: Cambios de formato, tabulaciones, espacios o puntos y coma, etc; no afectan al usuario.
+test: Añade tests o refactoriza uno existente.
+
+para agregar los cambios un luego generar el commit
+git add .
+git commit o git commit -m "mensaje"
+
+como desahecer la modificación 
+git checkout -- file
+
+cuando se hace git add .
+git reset HEAD file
+
+
+como obtener los commits en una linea
+git log --oneline
+git log --oneline | cat
+
+#tutorial 6
+como desahecer el commit
+git reset commit
+ejemplo
+b48cd9f Elimina contenido
+git reset b48cd9f 
+git reset --hard b48cd9f 
+
+#tutorial 7
+es para ver los cambios de un commit con otro
+git diff commit1 commit2
+
+significar HEAD~1 commit antes que HEAD que es el ultimo
+git diff HEAD~1 HEAD
+
+como desahecer el commit
+es mejor hacerlo con revert
+porque permite que si hay cambios nuevos de tus compañeros no va a ver conflictos cuando agregen cosas
+git revert HEAD
+
+cuando queres tener los cambios aun sin enviar y sin tener commit
+git revert --no-commit HEAD
+
+tutorial 11
+git log --oneline --decoraye --all --graph
+como hacer el merge
+git merge rama
+
+tutorial 12
+como resolver un conflicto con el merger los cambios en un archivo en una seccion o una linea
+ejemplo en una linea
+<<<<<< HEAD
+    Esto esto el ultimo commit
+==============
+>>>>>>  Rama-new
+    Este es el commit que se quiere integrar
+
+tutorial 13 
+alias o atajos
+git lod = log --oneline --decorate
+para configurar se tiene que hacer esta linea de ejemplo
+git config --global alias.lod 'log --oneline --decorate'
+
+git config --global alias.lodag 'log --oneline --decorate --all --graph'
+
+para ver todos los alias es 
+git config --global --get-regexp alias
+
+para eliminar el alias
+git config --global --unset alias.lodag
+
+otra opcion es abriendo el archivo ~/.gitconfig y poner el alias 
+open ~/.gitconfig
+
+
+tutorial 14
+git merge --abort
+
+tutorial 15
+commit tag
+git tag  alias commit
+ejemplo
+git tag v1.0.0 b48cd9f
+
+tutorial 17
+git stash sirve para almacenar los cambios en memoria sin perderlos 
+y cuando regrese a la rama los pueda recuperar
+ejemplo el la rama main hice cambios pero tengo que hacer una nuevo modificacion en la rama developer antes
+pero para no perderla hago 
+por ejemplo hice modificacion en el git add index.html hago el git add index.html 
+pero enseguida me piden el cambio del la rama developer
+para eso hago
+git stash 
+
+O para que se almacene los cambios con mensaje
+git stash save "index.html modificated"
+
+comandos git stash -h
+
+para ver todos los cambios guardados en el stash
+git stash list
+
+para aplicar los cambios que teniamos en el archivo index.html
+git stash apply
+
+para ver informacion del stash hago que quiero aplicar 
+git stash show stash@\{0\} 
+
+para eliminar el stash
+git stash drop
+
+tambien para no hacer git apply y el git drop
+git stash pop
+
+para eliminar todos los stash almacenados
+git stash clear
+
+tutorial 18
+remotos el repositorio al de github por ejemplo y cualquiera que tenga acceso a ese repositorio
+puedes trabajar en ese repositorio donde se puede enviar (git push) o recibir (git pull) cambios de tus 
+(compañeros o tuyos)
+
+como añadir un repositorio a tu respositorio
+git remote add origin https://github.com/user1/repositorio.git
+
+para saber que repositorios remotos hay
+git remote
+origin (si es que todo salio bien con ese repositorio)
+
+git remote -v
+origin https://github.com/user1/repositorio.git (fech)
+origin https://github.com/user1/repositorio.git (push)
+
+si tienes una rama
+git push origin master
+
+si tienes mas ramas
+git push origin --all
+
+tutorial 23
+Squash: aplastar commits
+por ejemplo quiero tener los 4 ultimos commits aplico el siguiente comando
+git rebase -i HEAD~4
+
+nos da una consola interactiva donde tenemos que cambiar pick por squash
+pick 62b7d99 Delete file.txt
+pick 86f6584 Create static.yml
+pick 3dd0fb7 resolve feacture of the margins
+pick 0bb4cca feacture update margins
+
+para los commits que queremos descartar y nos quedaremos con uno por ejemplo el ultimo
+pick 62b7d99 Delete file.txt
+squash 86f6584 Create static.yml
+squash 3dd0fb7 resolve feacture of the margins
+squash 0bb4cca feacture update margins
+
+luego te pide que te quedes con un comentario para el commit y borras todo 
+luego pones el mensaje por ejemplo
+"este es el mensaje del commit" nada mas y guardas
